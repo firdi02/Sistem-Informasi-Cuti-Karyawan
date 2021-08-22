@@ -34,6 +34,7 @@ public class Employee extends MyAudtableBase<String> {
     @JoinColumn(name = "role_id", insertable=false, updatable=false)
     private Role role;
 
+
     public Role getRole() {
         return role;
     }

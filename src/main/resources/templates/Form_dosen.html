@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/favicon.ico" type="image/ico" />
+    <title>UNIVERSITAS NASIONAL PASIM</title>
+
+    <!-- Bootstrap -->
+    <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- Datatables -->
+
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view mt-5">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a th:href="@{/dasboard}" class="site_title"><img class="img-responsive" src="images/favicon.ico" alt="">
+                        <span> UNAS PASIM</span>
+                    </a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <!--                    <div class="profile clearfix">-->
+                <!--                        <div class="profile_pic">-->
+                <!--                            <img src="images/img.jpg" alt="..." class="ig-cirmcle profile_img">-->
+                <!--                        </div>-->
+                <!--                        <div class="profile_info">-->
+                <!--                            <span>Welcome,</span>-->
+                <!--                            <h2><th:block th:utext="${namaAkun}"/></h2>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>Dashboard</h3>
+                        <ul class="nav side-menu" style="font-size: 14px">
+                            <li><a th:href="@{/dasboard}"><i class="fa fa-home"></i> <span>Home</span></a>
+                            </li>
+                            <li><a><i class="fa fa-user"></i> PENGGUNA <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a th:href="@{/mahasiswa}">MAHASISWA</a></li>
+                                    <li><a th:href="@{/dosen}">DOSEN</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a th:href="@{/fakultas}">
+                                    <i class="fa fa-book"></i><span>FAKULTAS</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/jurusan}">
+                                    <i class="fa fa-book"></i><span>JURUSAN</span>
+                                </a>
+                            </li>
+                            <li><a th:href="@{/makul}"><i class="fa fa-clone"></i> <span>MATA KULIAH</span></a>
+                            </li>
+                            <li><a th:href="@{/nilai}"><i class="fa fa-book"></i> <span>NILAI</span></a>
+                            </li>
+                            <li><a th:href="@{/jadwal}"><i class="fa fa-calendar"></i><span>JADWAL</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- top navigation -->
+    <div class="top_nav">
+        <div class="nav_menu">
+            <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            </div>
+            <nav class="nav navbar-nav">
+                <ul class=" navbar-right">
+                    <li class="nav-item dropdown open" style="padding-left: 15px;">
+                        <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
+                           id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                            <img src="images/img.jpg" alt=""><th:block th:utext="${namaAkun}"/>
+                        </a>
+                        <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" th:href="@{/register}"> Tambah Akun</a>
+                            <a class="dropdown-item" th:href="@{logout}"><i class="fa fa-sign-out pull-right"></i>
+                                Log Out</a>
+                        </div>
+                    </li>
+                </ul>
+                </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- /top navigation -->
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <div th:if="${dosen.id==null}">
+                                <h2>Tambah Dosen</h2>
+                            </div>
+                            <div th:unless="${dosen.id==null}">
+                                <h2>Edit Dosen</h2>
+                            </div>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form class="" th:action="@{/dosen/simpan}" th:object="${dosen}" method="post" novalidate>
+                                <input type="text" th:field="*{id}" th:value="${dosen.id}" hidden="true">
+                                <div class="field item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3  label-align">Nip<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input class="form-control" th:field="*{nip}" data-validate-length-range="11" data-validate-words="1"
+                                               name="name" required="required" />
+                                    </div>
+                                </div>
+
+                                <div class="field item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3  label-align">Nama<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input class="form-control" th:field="*{nama}" data-validate-length-range="3" data-validate-words="1"
+                                               name="name" required="required" />
+                                    </div>
+                                </div>
+
+                                <div class="field item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3  label-align">Jabatan<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input class="form-control" th:field="*{jabatan}" data-validate-length-range="3" data-validate-words="1"
+                                               name="name" required="required" />
+                                    </div>
+                                </div>
+
+
+
+                                <div class="ln_solid">
+                                    <div class="form-group">
+                                        <div class="col-md-6 offset-md-3">
+                                            <button type='submit' class="btn btn-primary">Submit</button>
+                                            <button type='reset' class="btn btn-success">Reset</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /footer content -->
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../vendors/validator/multifield.js"></script>
+    <script src="../vendors/validator/validator.js"></script>
+
+    <!-- Javascript functions	-->
+    <script>
+        function hideshow() {
+            var password = document.getElementById("password1");
+            var slash = document.getElementById("slash");
+            var eye = document.getElementById("eye");
+
+            if (password.type === 'password') {
+                password.type = "text";
+                slash.style.display = "block";
+                eye.style.display = "none";
+            }
+            else {
+                password.type = "password";
+                slash.style.display = "none";
+                eye.style.display = "block";
+            }
+
+        }
+    </script>
+
+    <script>
+        // initialize a validator instance from the "FormValidator" constructor.
+        // A "<form>" element is optionally passed as an argument, but is not a must
+        var validator = new FormValidator({
+            "events": ['blur', 'input', 'change']
+        }, document.forms[0]);
+        // on form "submit" event
+        document.forms[0].onsubmit = function (e) {
+            var submit = true,
+                validatorResult = validator.checkAll(this);
+            console.log(validatorResult);
+            return !!validatorResult.valid;
+        };
+        // on form "reset" event
+        document.forms[0].onreset = function (e) {
+            validator.reset();
+        };
+        // stuff related ONLY for this demo page:
+        $('.toggleValidationTooltips').change(function () {
+            validator.settings.alerts = !this.checked;
+            if (this.checked)
+                $('form .alert').remove();
+        }).prop('checked', false);
+
+    </script>
+
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- validator -->
+    <!-- <script src="../vendors/validator/validator.js"></script> -->
+
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+
+</body>
+
+</html>

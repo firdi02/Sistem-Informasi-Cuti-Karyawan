@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/favicon.ico" type="image/ico" />
+
+    <title>SISTEM CUTI KARYAWAN</title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{../vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{../vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+    <link th:href="@{../vendors/nprogress/nprogress.css}" rel="stylesheet">
+    <!-- iCheck -->
+    <link th:href="@{../vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+
+    <!-- bootstrap-progressbar -->
+    <link th:href="@{../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link th:href="@{../vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link th:href="@{../vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link th:href="@{../build/css/custom.min.css}" rel="stylesheet">
+</head>
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view mt-5">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a th:href="@{/dasboard}" class="site_title"><img class="img-responsive" src="images/favicon.ico" alt="">
+                            <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span>
+                            </a>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <br />
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section" sec:authorize="hasAnyAuthority('KARYAWAN')">
+                            <h3>Dashboard</h3>
+                            <ul class="nav side-menu" style="font-size: 14px">
+                                <li><a th:href="@{/dasboard}"><i class="fa fa-home fa-4x"></i>  <span>HOME</span></a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/jurusan}">
+                                        <i class="fa fa-book fa-2x"></i><span>KELOLA CUTI</span>
+                                    </a>
+                                </li>
+                                <li><a th:href="@{/makul}"><i class="fa fa-clone fa-2x"></i> <span>PENGAJUAN CUTI</span></a>
+                            </ul>
+                        </div>
+                        <div class="menu_section" sec:authorize="hasAnyAuthority('HRD')">
+                            <h3>Dashboard</h3>
+                            <ul class="nav side-menu" style="font-size: 14px">
+                                <li><a th:href="@{/dasboard}"><i class="fa fa-home fa-4x"></i>  <span>HOME</span></a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/jurusan}">
+                                        <i class="fa fa-book fa-2x"></i><span>KELOLA CUTI KARYAWAN</span>
+                                    </a>
+                                </li>
+                                <li><a th:href="@{/makul}"><i class="fa fa-clone fa-2x"></i> <span>REKAP CUTI KARYAWAN</span></a>
+                                <li><a th:href="@{/makul}"><i class="fa fa-clone fa-2x"></i> <span>RECRUTMEN</span></a>
+                            </ul>
+                        </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
+                                    id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="images/img.jpg" alt=""><th:block th:utext="${namaAkun}"/>
+                                </a>
+                                <div class="dropdown-menu dropdown-usermenu pull-right"
+                                    aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" th:href="@{/register}"> Tambah Akun</a>
+                                    <a class="dropdown-item" th:href="@{/logout}"><i class="fa fa-sign-out pull-right"></i>
+                                        Log Out</a>
+                                </div>
+                            </li>
+                        </ul>
+                        </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+
+            <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="row tile_count" style="text-align: center;">
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> Total Mahasiswa</span>
+                    <div class="count"><th:block th:utext="${jmlMahasiswa}"/></div>
+    
+                 </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Total Dosen</span>
+                <div class="count"><th:block th:utext="${jmlDosen}"/></div>
+            </div>
+        </div>
+
+        <div class="row top_tiles">
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a th:href="@{/mahasiswa_baru}">
+                    <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-user green"></i>
+                        </div>
+                        <div class="count">...</div>
+                        <h3>MAHASISWA</h3>
+                        <p>Menambahkan mahasiswa baru</p>
+                    </div>
+                </a>
+            </div>
+        
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a th:href="@{/dosen_baru}">
+                    <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-user green"></i>
+                        </div>
+                        <div class="count">...</div>
+                        <h3>DOSEN</h3>
+                        <p>Menambahkan Dosen baru</p>
+                    </div>
+                </a>
+            </div>
+        
+        
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a th:href="@{/makul_baru}">
+                    <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-book green"></i>
+                        </div>
+                        <div class="count">...</div>
+                        <h3>MATA KULIAH</h3>
+                        <p>Menambahkan mata kuliah baru</p>
+                    </div>
+                </a>
+            </div>
+        
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a th:href="@{/nilai_baru}">
+                    <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-edit green"></i>
+                        </div>
+                        <div class="count">...</div>
+                        <h3>NILAI</h3>
+                        <p>Menambahkan nilai baru</p>
+                    </div>
+                </a>
+            </div>
+            </a>
+        </div><br><br><br><br><br><br>
+                <h1 style="text-align: center;">SISTEM CUTI KARYAWAN</h1>
+            </div>
+
+        <!-- jQuery -->
+        <script th:src="@{../vendors/jquery/dist/jquery.min.js}"></script>
+        <!-- Bootstrap -->
+        <script th:src="@{../vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+        <!-- FastClick -->
+        <script th:src="@{../vendors/fastclick/lib/fastclick.js}"></script>
+        <!-- NProgress -->
+        <script th:src="@{../vendors/nprogress/nprogress.js}"></script>
+        <!-- Chart.js -->
+        <script th:src="@{../vendors/Chart.js/dist/Chart.min.js}"></script>
+        <!-- gauge.js -->
+        <script th:src="@{../vendors/gauge.js/dist/gauge.min.js}"></script>
+        <!-- bootstrap-progressbar -->
+        <script th:src="@{../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
+        <!-- iCheck -->
+        <script th:src="@{../vendors/iCheck/icheck.min.js}"></script>
+        <!-- Skycons -->
+        <script th:src="@{../vendors/skycons/skycons.js}"></script>
+        <!-- Flot -->
+        <script th:src="@{../vendors/Flot/jquery.flot.js}"></script>
+        <script th:src="@{../vendors/Flot/jquery.flot.pie.js}"></script>
+        <script th:src="@{../vendors/Flot/jquery.flot.time.js}"></script>
+        <script th:src="@{../vendors/Flot/jquery.flot.stack.js}"></script>
+        <script th:src="@{../vendors/Flot/jquery.flot.resize.js}"></script>
+        <!-- Flot plugins -->
+        <script th:src="@{../vendors/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+        <script th:src="@{../vendors/flot-spline/js/jquery.flot.spline.min.js}"></script>
+        <script th:src="@{../vendors/flot.curvedlines/curvedLines.js}"></script>
+        <!-- DateJS -->
+        <script th:src="@{../vendors/DateJS/build/date.js}"></script>
+        <!-- JQVMap -->
+        <script th:src="@{../vendors/jqvmap/dist/jquery.vmap.js}"></script>
+        <script th:src="@{../vendors/jqvmap/dist/maps/jquery.vmap.world.js}"></script>
+        <script th:src="@{../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js}"></script>
+        <!-- bootstrap-daterangepicker -->
+        <script th:src="@{../vendors/moment/min/moment.min.js}"></script>
+        <script th:src="@{../vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
+        
+        <!-- Custom Theme Scripts -->
+        <script th:src="@{../build/js/custom.min.js}"></script>
+        
+        </body>
+        
+        </html>
