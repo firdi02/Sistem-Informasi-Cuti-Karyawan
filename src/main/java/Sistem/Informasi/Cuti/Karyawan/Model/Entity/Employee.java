@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Employee extends MyAudtableBase<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
+    @Column(name = "employee_id")
     private Integer employe_id;
 
     @Column(name = "nip", length = 18, unique = true, nullable = false)
