@@ -36,12 +36,12 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view mt-5">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a th:href="@{/dasboard}" class="site_title"><img class="img-responsive" src="images/favicon.ico" alt=""></a>
+                        <img class="rounded mx-auto d-block" src="images/favicon.ico" width="90" height="100" alt="">
                     </div>
 
                     <div class="clearfix"></div>
 
-                    <br />
+                    <br /><br /><br />
 
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -68,8 +68,10 @@
                                         <i class="fa fa-book fa-2x"></i><span>KELOLA CUTI KARYAWAN</span>
                                     </a>
                                 </li>
-                                <li><a th:href="@{/makul}"><i class="fa fa-clone fa-2x"></i> <span>REKAP CUTI KARYAWAN</span></a>
-                                <li><a th:href="@{/makul}"><i class="fa fa-clone fa-2x"></i> <span>RECRUTMEN</span></a>
+                                <li><a th:href="@{/makul}"><i class="fa fa-clone fa-2x"></i> <span>REKAP CUTI KARYAWAN</span></a></li>
+                                <li><a th:href="@{/HRD/data}"><i class="fa fa-calendar-plus-o fa-2x"></i> <span>DATA LIBUR</span></a></li>
+                                <li><a th:href="@{/HRD/data}"><i class="fa fa-users fa-2x"></i> <span>DATA KARYAWAN</span></a></li>
+                                <li><a th:href="@{/HRD/recruitmen}"><i class="fa fa-user-plus fa-2x"></i> <span>RECRUITMEN</span></a></li>
                             </ul>
                         </div>
                         </div>
@@ -106,71 +108,64 @@
                 </div>
             </div>
             <!-- /top navigation -->
-
+<!--            karyawan-->
             <!-- page content -->
         <div class="right_col" role="main">
             <div class="row tile_count" style="text-align: center;">
-                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> Total Mahasiswa</span>
-                    <div class="count"><th:block th:utext="${jmlMahasiswa}"/></div>
-    
-                 </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                <span class="count_top"><i class="fa fa-user"></i> Total Dosen</span>
-                <div class="count"><th:block th:utext="${jmlDosen}"/></div>
-            </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count"></div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count"></div>
         </div>
 
         <div class="row top_tiles">
-            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-8 col-xs-14" sec:authorize="hasAnyAuthority('KARYAWAN')">
                 <a th:href="@{/mahasiswa_baru}">
                     <div class="tile-stats">
-                        <div class="icon"><i class="fa fa-user green"></i>
+                        <div class="icon"><i class="fa fa-calendar-minus-o green"></i>
                         </div>
-                        <div class="count">...</div>
-                        <h3>MAHASISWA</h3>
-                        <p>Menambahkan mahasiswa baru</p>
+                        <div class="count">...</div><br>
+                        <h4>&nbsp;CUTI TAHUNAN</h4>
+                        <p>Sisa Cuti Tahunan</p>
                     </div>
                 </a>
             </div>
         
-            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-8 col-xs-14" sec:authorize="hasAnyAuthority('KARYAWAN')">
                 <a th:href="@{/dosen_baru}">
                     <div class="tile-stats">
-                        <div class="icon"><i class="fa fa-user green"></i>
+                        <div class="icon"><i class="fa fa-calendar-minus-o green"></i>
                         </div>
-                        <div class="count">...</div>
-                        <h3>DOSEN</h3>
-                        <p>Menambahkan Dosen baru</p>
+                        <div class="count">...</div><br>
+                        <h4>CUTI LINTAS TAHUN</h4>
+                        <p>Sisa Cuti Lintas Tahun</p>
                     </div>
                 </a>
             </div>
-        
-        
-            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a th:href="@{/makul_baru}">
+
+<!--            hrd-->
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-8 col-xs-14" sec:authorize="hasAnyAuthority('HRD')">
+                <a th:href="@{/dosen_baru}">
                     <div class="tile-stats">
-                        <div class="icon"><i class="fa fa-book green"></i>
+                        <div class="icon"><i class="fa fa-users green"></i>
                         </div>
-                        <div class="count">...</div>
-                        <h3>MATA KULIAH</h3>
-                        <p>Menambahkan mata kuliah baru</p>
+                        <div class="count">...</div><br>
+                        <h5>JUMLAH KARYAWAN</h5>
+                        <p>Menampilkan Jumlah Karyawan</p>
                     </div>
                 </a>
             </div>
-        
-            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a th:href="@{/nilai_baru}">
+
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-8 col-xs-14" sec:authorize="hasAnyAuthority('HRD')">
+                <a th:href="@{/dosen_baru}">
                     <div class="tile-stats">
-                        <div class="icon"><i class="fa fa-edit green"></i>
+                        <div class="icon"><i class="fa fa-bell green"></i>
                         </div>
-                        <div class="count">...</div>
-                        <h3>NILAI</h3>
-                        <p>Menambahkan nilai baru</p>
+                        <div class="count">...</div><br>
+                        <h5>CUTI MASUK</h5>
+                        <p>Menampilkan Cuti Masuk</p>
                     </div>
                 </a>
             </div>
-            </a>
+
         </div><br><br><br><br><br><br>
                 <h1 style="text-align: center;">SELAMAT DATANG <span sec:authentication="principal.authorities"/></h1>
             </div>

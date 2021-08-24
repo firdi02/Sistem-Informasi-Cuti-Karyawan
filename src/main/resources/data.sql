@@ -1,5 +1,5 @@
-INSERT INTO tbl_role (role_id,nama_role,deleted,created_date,updated_date,created_by,updated_by)VALUES (1,'HRD',1,NOW(),NOW(),'SYSTEM','SYSTEM');
-INSERT INTO tbl_role (role_id,nama_role,deleted,created_date,updated_date,created_by,updated_by) VALUES (2,'KARYAWAN',1,NOW(),NOW(),'SYSTEM','SYSTEM');
+INSERT INTO tbl_role (role_id,nama,deleted,created_date,updated_date,created_by,updated_by)VALUES (1,'HRD',1,NOW(),NOW(),'SYSTEM','SYSTEM');
+INSERT INTO tbl_role (role_id,nama,deleted,created_date,updated_date,created_by,updated_by) VALUES (2,'KARYAWAN',1,NOW(),NOW(),'SYSTEM','SYSTEM');
 
 INSERT INTO tbl_jenis_cuti (jenis_cuti_id,jenis_cuti,deskripsi,deleted,created_date,updated_date,created_by,updated_by) VALUES (1,'tahunan','Cuti tahunan adalah cuti yang disediakan oleh perusahaan diluar cuti bersama pemerintah',1,NOW(),NOW(),'SYSTEM','SYSTEM');
 INSERT INTO tbl_jenis_cuti (jenis_cuti_id,jenis_cuti,deskripsi,deleted,created_date,updated_date,created_by,updated_by) VALUES (2,'cuti lintas tahun','Cuti lintas tahun adalah sisa cuti tahunan yang tersisa dari tahun sebelumnya dan hanya bisa di pakai pada 6 bulan pertama saja',1,NOW(),NOW(),'SYSTEM','SYSTEM');

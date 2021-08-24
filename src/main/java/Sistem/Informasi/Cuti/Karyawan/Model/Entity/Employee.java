@@ -31,7 +31,7 @@ public class Employee extends MyAudtableBase<String> {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "role_id", insertable=false, updatable=false)
+    @JoinColumn(name = "role_id")
     private Role role;
 
 

@@ -12,13 +12,8 @@ public class Role extends MyAudtableBase<String> {
     @Column(name = "role_id")
     private Integer role_id;
 
-    @Column(name = "nama_role", length = 50, nullable = false)
+    @Column(name = "nama")
     private String nama_role;
-
-    public Role(){}
-    public Role(String nama_role){
-        this.nama_role=nama_role;
-    }
 
     public Integer getRole_id() {
         return role_id;
