@@ -1,92 +1,62 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="images/favicon.ico" type="image/ico" />
-    <title>UNIVERSITAS NASIONAL PASIM</title>
+    <link rel="icon" href="../../images/favicon.ico" type="image/ico" />
+
+    <title>SISTEM CUTI KARYAWAN</title>
 
     <!-- Bootstrap -->
-    <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- Datatables -->
+    <link th:href="@{../../vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
 
-    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{../../vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+    <link th:href="@{../../vendors/nprogress/nprogress.css}" rel="stylesheet">
+    <!-- iCheck -->
+    <link th:href="@{../../vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+
+    <!-- bootstrap-progressbar -->
+    <link th:href="@{../../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link th:href="@{../../vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link th:href="@{../../vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link th:href="@{../../build/css/custom.min.css}" rel="stylesheet">
 </head>
 
 <body class="nav-md">
-<div class="container body">
+<div class="container body" sec:authorize="isAuthenticated()">
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view mt-5">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a th:href="@{/dasboard}" class="site_title"><img class="img-responsive" src="images/favicon.ico" alt="">
-                        <span> UNAS PASIM</span>
-                    </a>
+                    <img class="rounded mx-auto d-block" src="../../images/favicon.ico" width="90" height="100" alt="">
                 </div>
 
                 <div class="clearfix"></div>
 
-                <!-- menu profile quick info -->
-                <!--                    <div class="profile clearfix">-->
-                <!--                        <div class="profile_pic">-->
-                <!--                            <img src="images/img.jpg" alt="..." class="ig-cirmcle profile_img">-->
-                <!--                        </div>-->
-                <!--                        <div class="profile_info">-->
-                <!--                            <span>Welcome,</span>-->
-                <!--                            <h2><th:block th:utext="${namaAkun}"/></h2>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!-- /menu profile quick info -->
-
-                <br />
-
+                <br /><br /><br />
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
+                    <div class="menu_section" sec:authorize="hasAnyAuthority('KARYAWAN')">
                         <h3>Dashboard</h3>
                         <ul class="nav side-menu" style="font-size: 14px">
-                            <li><a th:href="@{/dasboard}"><i class="fa fa-home"></i> <span>Home</span></a>
-                            </li>
-                            <li><a><i class="fa fa-user"></i> PENGGUNA <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a th:href="@{/mahasiswa}">MAHASISWA</a></li>
-                                    <li><a th:href="@{/dosen}">DOSEN</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a th:href="@{/fakultas}">
-                                    <i class="fa fa-book"></i><span>FAKULTAS</span>
-                                </a>
+                            <li><a th:href="@{/dasboard}"><i class="fa fa-home fa-4x"></i>  <span>HOME</span></a>
                             </li>
                             <li>
                                 <a th:href="@{/jurusan}">
-                                    <i class="fa fa-book"></i><span>JURUSAN</span>
+                                    <i class="fa fa-book fa-2x"></i><span>KELOLA CUTI</span>
                                 </a>
                             </li>
-                            <li><a th:href="@{/makul}"><i class="fa fa-clone"></i> <span>MATA KULIAH</span></a>
-                            </li>
-                            <li><a th:href="@{/nilai}"><i class="fa fa-book"></i> <span>NILAI</span></a>
-                            </li>
-                            <li><a th:href="@{/jadwal}"><i class="fa fa-calendar"></i><span>JADWAL</span></a>
-                            </li>
+                            <li><a th:href="@{/KARYAWAN/pengajuan}"><i class="fa fa-clone fa-2x"></i> <span>PENGAJUAN CUTI</span></a>
                         </ul>
                     </div>
                 </div>
@@ -106,7 +76,8 @@
                     <li class="nav-item dropdown open" style="padding-left: 15px;">
                         <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
                            id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                            <img src="images/img.jpg" alt=""><th:block th:utext="${namaAkun}"/>
+                            <img src="../../images/img.jpg" alt="">
+                            <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span>
                         </a>
                         <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" th:href="@{/register}"> Tambah Akun</a>
@@ -131,11 +102,11 @@
                 <div class="col-md-12 col-sm-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <div th:if="${jadwal.id==null}">
-                                <h2>Tambah Jadwal</h2>
+                            <div th:if="${pengajuan.pengajuanId==null}">
+                                <h2>Buat Pengajuan</h2>
                             </div>
-                            <div th:unless="${jadwal.id==null}">
-                                <h2>Edit Jadwal</h2>
+                            <div th:unless="${pengajuan.pengajuanId==null}">
+                                <h2>Edit Pengajuan</h2>
                             </div>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -144,63 +115,75 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <form class="" th:action="@{/jadwal/simpan}"  th:object="${jadwal}" method="post" novalidate>
-                                <input type="text" th:field="*{id}" th:value="${jadwal.id}" hidden="true">
+                            <form class="" th:action="@{/KARYAWAN/simpan}" th:object="${pengajuan}" method="post" novalidate>
+                                <input type="text" th:field="*{pengajuanId}" th:value="${pengajuan.pengajuanId}" hidden="true">
+                                <input type="text" th:field="*{detailId}" th:value="${pengajuan.detailId}" hidden="true">
 
                                 <div class="field item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3  label-align">Hari<span
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Jenis Cuti<span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <select th:field="*{jenisCutiId}" class="form-control" required>
+                                            <th:block th:each="data:${jenisCuti}">
+                                                <option th:text="${data.jenis_cuti}" th:value="${data.jenis_cuti_id}" />
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="field item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Pengganti<span class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <select th:field="*{penggantiId}" class="form-control" required>
+                                            <th:block th:each="data:${pengganti}">
+                                                <option th:text="${data.nama}" th:value="${data.employe_id}" />
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="field item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3  label-align">Tanggal Mulai<span
                                             class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input class="form-control" th:field="*{hari}" data-validate-length-range="11" data-validate-words="1"
+                                        <input class="form-control" th:field="*{tanggalCuti}" type="date" data-validate-length-range="3" data-validate-words="1"
                                                name="name" required="required" />
                                     </div>
                                 </div>
 
                                 <div class="field item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3  label-align">mulai<span
+                                    <label class="col-form-label col-md-3 col-sm-3  label-align">Lama Cuti<span
                                             class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input class="form-control" th:field="*{mulai}" type="time" name="date" required="required" />
+                                        <input class="form-control" th:field="*{lamaCuti}" data-validate-length-range="3" data-validate-words="1"
+                                               name="name" required="required" />
                                     </div>
                                 </div>
+
                                 <div class="field item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3  label-align">selesai<span
+                                    <label class="col-form-label col-md-3 col-sm-3  label-align">Alamat<span
                                             class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input class="form-control" th:field="*{selesai}" type="time" name="date" required="required" />
+                                        <input class="form-control" th:field="*{alamat}" data-validate-length-range="3" data-validate-words="1"
+                                               name="name" required="required" />
+                                    </div>
+                                </div>
+
+
+                                <div class="field item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3  label-align">No Telp<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input class="form-control" th:field="*{noTelp}" data-validate-length-range="3" data-validate-words="1"
+                                               name="name" required="required" />
                                     </div>
                                 </div>
 
                                 <div class="field item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Mata Kuliah<span class="required">*</span></label>
+                                    <label class="col-form-label col-md-3 col-sm-3  label-align">Keterangan<span
+                                            class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6">
-                                        <select th:field="*{makul}" class="form-control" required>
-                                            <th:block th:each="data2:${makul}">
-                                                <option th:text="${data2.nama}" th:value="${data2.id}" />
-                                            </th:block>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="field item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Semester<span class="required">*</span></label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <select th:field="*{semester}" class="form-control" required>
-                                            <th:block th:each="data:${semester}">
-                                                <option th:text="${data.id}" th:value="${data.id}" />
-                                            </th:block>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="field item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Jurusan<span class="required">*</span></label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <select th:field="*{jurusan}" class="form-control" required>
-                                            <th:block th:each="data:${jurusan}">
-                                                <option th:text="${data.nama}" th:value="${data.id}" />
-                                            </th:block>
-                                        </select>
+                                        <textarea class="form-control" th:field="*{keterangan}" data-validate-length-range="3" data-validate-words="1"
+                                                  name="name" required="required" />
                                     </div>
                                 </div>
 
@@ -225,8 +208,8 @@
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="../vendors/validator/multifield.js"></script>
-    <script src="../vendors/validator/validator.js"></script>
+    <script src="../../vendors/validator/multifield.js"></script>
+    <script src="../../vendors/validator/validator.js"></script>
 
     <!-- Javascript functions	-->
     <script>
@@ -276,18 +259,18 @@
     </script>
 
     <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <script src="../../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
+    <script src="../../vendors/nprogress/nprogress.js"></script>
     <!-- validator -->
     <!-- <script src="../vendors/validator/validator.js"></script> -->
 
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <script src="../../build/js/custom.min.js"></script>
 
 </body>
 

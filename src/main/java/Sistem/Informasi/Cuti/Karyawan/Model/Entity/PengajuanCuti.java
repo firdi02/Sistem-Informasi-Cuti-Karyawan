@@ -16,15 +16,16 @@ public class PengajuanCuti extends MyAudtableBase<String> {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne
-    @JoinColumn(name = "status_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "status_id", referencedColumnName = "status_cuti_id")
     private StatusCuti statusCuti;
 
     @Column(name = "pengganti_id")
     private Integer pengganti_id;
 
-    @Column(name = "hrd_id")
-    private Integer hrd_id;
+    @ManyToOne
+    @JoinColumn(name = "hrd_id")
+    private Employee hrd;
 
     @Column(name = "alamat")
     private String alamat;
@@ -37,6 +38,17 @@ public class PengajuanCuti extends MyAudtableBase<String> {
 
     @Column(name = "lama_cuti", length = 4)
     private Integer lama_cuti;
+
+    @OneToOne(mappedBy = "pengajuanCuti")
+    private DetailCuti detailCuti;
+
+    public DetailCuti getDetailCuti() {
+        return detailCuti;
+    }
+
+    public void setDetailCuti(DetailCuti detailCuti) {
+        this.detailCuti = detailCuti;
+    }
 
     public Integer getPengajuan_id() {
         return pengajuan_id;
@@ -70,12 +82,12 @@ public class PengajuanCuti extends MyAudtableBase<String> {
         this.pengganti_id = pengganti_id;
     }
 
-    public Integer getHrd_id() {
-        return hrd_id;
+    public Employee getHrd() {
+        return hrd;
     }
 
-    public void setHrd_id(Integer hrd_id) {
-        this.hrd_id = hrd_id;
+    public void setHrd(Employee hrd) {
+        this.hrd = hrd;
     }
 
     public String getAlamat() {

@@ -1,6 +1,7 @@
 package Sistem.Informasi.Cuti.Karyawan.Model.Entity;
 
 import Sistem.Informasi.Cuti.Karyawan.Model.Common.MyAudtableBase;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,19 +10,21 @@ import java.util.Date;
 @Table(name = "tbl_detail_pengajuan_cuti")
 public class DetailCuti extends MyAudtableBase<String> {
     @Id
+    @Column(name = "detail_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer detail_pengajuan_cuti_id;
 
-    @ManyToOne
-    @JoinColumn(name = "pengajuan_cuti_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pengajuan_id", referencedColumnName = "pengajuan_id")
     private PengajuanCuti pengajuanCuti;
 
     @ManyToOne
     @JoinColumn(name = "jenis_cuti_id")
     private JenisCuti jenisCuti;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "tgl_cuti")
-    private Date date;
+    private Date tanggal;
 
     public Integer getDetail_pengajuan_cuti_id() {
         return detail_pengajuan_cuti_id;
@@ -47,11 +50,11 @@ public class DetailCuti extends MyAudtableBase<String> {
         this.jenisCuti = jenisCuti;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getTanggal() {
+        return tanggal;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTanggal(Date tanggal) {
+        this.tanggal = tanggal;
     }
 }

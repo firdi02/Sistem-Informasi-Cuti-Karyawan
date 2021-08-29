@@ -20,15 +20,16 @@ public class SendEmail {
             helper.setSubject("PT Pasim Utama");
             helper.setFrom("Mr.DanilPub18@gmail.com");
             helper.setTo(email);
-
+            String link = "http://localhost:8080/login";
             boolean html = true;
             helper.setText("<b>Dear "+nama+"</b>," +
                             "<p>Thank you interest in joining <b>PT Pasim Utama</b></p>" +
                             "<p>We appreciate the time you've taken to apply for the position of <b>"+divisi+"</b></p>"+
                             "<p>After reviewing your profile, we would you like to extend an interview invitation so that<p>" +
                             "<p>we can further discuss on the above opportunity </p>." +
-                            "<p>your password <b>"+password+"</b> username "+nama+"</p>"+
-                            "<p>We look forward to hearing for you.</p><hr>" +
+                            "<p>We look forward to hearing for you.</p>" +
+                            "<p>your password <b>"+password+"</b> username <b>"+nama+"</b></p>"+
+                            "<p>you can <b><a href="+link+">login</a></b> now</p><hr>"+
                             "Yours sincerely" +
                             "<p><b>PT Pasim Utama</b></p>" +
                             "<p><i>Suci Novianti</i><p/>"

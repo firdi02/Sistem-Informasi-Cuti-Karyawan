@@ -12,6 +12,3 @@ INSERT INTO tbl_status_cuti (status_cuti_id,status_cuti,deskripsi,deleted,create
 
 -- HRD UTAMA
 INSERT INTO tbl_employee (employee_id,nip,nama_lengkap,divisi,email,password,username,role_id,deleted,created_date,updated_date,created_by,updated_by) VALUES (1,'01234567890','Bejo Nugroho','HRD UTAMA','bejo@gmail.com','$2a$10$Mm.oeaKbktUECCDIuOrgCe8nbOIID6LFKxKethMZgoBS2kWUvrIzi','bejo',1,1,NOW(),NOW(),'SYSTEM','SYSTEM');
-
--- KARYAWAN TETAP
-INSERT INTO tbl_employee (employee_id,nip,nama_lengkap,divisi,email,password,username,role_id,deleted,created_date,updated_date,created_by,updated_by) VALUES (2,'01234567891','Budi Utomo','OFFICE BOY','bejo@gmail.com','$2a$10$Mm.oeaKbktUECCDIuOrgCe8nbOIID6LFKxKethMZgoBS2kWUvrIzi','budi',2,1,NOW(),NOW(),'SYSTEM','SYSTEM');

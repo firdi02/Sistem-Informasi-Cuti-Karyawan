@@ -85,7 +85,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" th:href="@{/register}"> Tambah Akun</a>
-                            <a class="dropdown-item" th:href="@{logout}"><i class="fa fa-sign-out pull-right"></i>
+                            <a class="dropdown-item" th:href="@{/logout}"><i class="fa fa-sign-out pull-right"></i>
                                 Log Out</a>
                         </div>
                     </li>
@@ -151,8 +151,8 @@
                                                     <td>[[${data.email}]]</td>
                                                     <td>[[${data.role.nama_role}]]</td>
                                                     <td>
-                                                        <a th:href="@{'/mahasiswa_ubah/'+${data.employe_id}}">EDIT</a>
-                                                        <a th:href="@{'/mahasiswa_hapus/'+${data.employe_id}}">HAPUS</a>
+                                                        <a th:href="@{'/HRD/karyawan/'+${data.employe_id}}">EDIT</a>
+                                                        <a th:href="@{'/HRD/hapus_karyawan/'+${data.employe_id}}">HAPUS</a>
                                                     </td>
                                                 </tr>
                                             </th:block>

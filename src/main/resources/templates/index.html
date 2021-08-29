@@ -51,11 +51,11 @@
                                 <li><a th:href="@{/dasboard}"><i class="fa fa-home fa-4x"></i>  <span>HOME</span></a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/jurusan}">
+                                    <a th:href="@{/KARYAWAN/monitoring}">
                                         <i class="fa fa-book fa-2x"></i><span>KELOLA CUTI</span>
                                     </a>
                                 </li>
-                                <li><a th:href="@{/makul}"><i class="fa fa-clone fa-2x"></i> <span>PENGAJUAN CUTI</span></a>
+                                <li><a th:href="@{/KARYAWAN/pengajuan}"><i class="fa fa-clone fa-2x"></i> <span>PENGAJUAN CUTI</span></a>
                             </ul>
                         </div>
                         <div class="menu_section" sec:authorize="hasAnyAuthority('HRD')">
@@ -64,13 +64,13 @@
                                 <li><a th:href="@{/dasboard}"><i class="fa fa-home fa-4x"></i>  <span>HOME</span></a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/jurusan}">
+                                    <a th:href="@{/KARYAWAN/monitoring}">
                                         <i class="fa fa-book fa-2x"></i><span>KELOLA CUTI KARYAWAN</span>
                                     </a>
                                 </li>
                                 <li><a th:href="@{/makul}"><i class="fa fa-clone fa-2x"></i> <span>REKAP CUTI KARYAWAN</span></a></li>
-                                <li><a th:href="@{/HRD/data}"><i class="fa fa-calendar-plus-o fa-2x"></i> <span>DATA LIBUR</span></a></li>
-                                <li><a th:href="@{/HRD/data}"><i class="fa fa-users fa-2x"></i> <span>DATA KARYAWAN</span></a></li>
+                                <li><a th:href="@{/HRD/libur}"><i class="fa fa-calendar-plus-o fa-2x"></i> <span>DATA LIBUR</span></a></li>
+                                <li><a th:href="@{/HRD/karyawan}"><i class="fa fa-users fa-2x"></i> <span>DATA KARYAWAN</span></a></li>
                                 <li><a th:href="@{/HRD/recruitmen}"><i class="fa fa-user-plus fa-2x"></i> <span>RECRUITMEN</span></a></li>
                             </ul>
                         </div>
@@ -118,44 +118,57 @@
 
         <div class="row top_tiles">
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-8 col-xs-14" sec:authorize="hasAnyAuthority('KARYAWAN')">
-                <a th:href="@{/mahasiswa_baru}">
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-calendar-minus-o green"></i>
                         </div>
-                        <div class="count">...</div><br>
+                        <div class="count" th:text="${Tahunan}"></div><br>
                         <h4>&nbsp;CUTI TAHUNAN</h4>
                         <p>Sisa Cuti Tahunan</p>
                     </div>
-                </a>
             </div>
         
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-8 col-xs-14" sec:authorize="hasAnyAuthority('KARYAWAN')">
-                <a th:href="@{/dosen_baru}">
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-calendar-minus-o green"></i>
                         </div>
-                        <div class="count">...</div><br>
+                        <div class="count" th:text="${Lintas}"></div><br>
                         <h4>CUTI LINTAS TAHUN</h4>
                         <p>Sisa Cuti Lintas Tahun</p>
                     </div>
-                </a>
             </div>
 
 <!--            hrd-->
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-8 col-xs-14" sec:authorize="hasAnyAuthority('HRD')">
-                <a th:href="@{/dosen_baru}">
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-users green"></i>
                         </div>
-                        <div class="count">...</div><br>
-                        <h5>JUMLAH KARYAWAN</h5>
-                        <p>Menampilkan Jumlah Karyawan</p>
+                        <div class="count" th:text="${total}"></div><br>
+                        <h5>JUMLAH PEGAWAI</h5>
+                        <p>Menampilkan Total Pegawai</p>
                     </div>
-                </a>
             </div>
 
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-8 col-xs-14" sec:authorize="hasAnyAuthority('HRD')">
-                <a th:href="@{/dosen_baru}">
+                <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-users green"></i>
+                    </div>
+                    <div class="count" th:text="${totalHrd}"></div><br>
+                    <h5>JUMLAH HRD</h5>
+                    <p>Menampilkan Total HRD</p>
+                </div>
+            </div>
+
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-8 col-xs-14" sec:authorize="hasAnyAuthority('HRD')">
+                <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-users green"></i>
+                    </div>
+                    <div class="count" th:text="${totalKaryawan}"></div><br>
+                    <h5>JUMLAH KARYAWAN</h5>
+                    <p>Menampilkan Total Karyawan</p>
+                </div>
+            </div>
+
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-8 col-xs-14" sec:authorize="hasAnyAuthority('HRD')">
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-bell green"></i>
                         </div>
@@ -163,7 +176,6 @@
                         <h5>CUTI MASUK</h5>
                         <p>Menampilkan Cuti Masuk</p>
                     </div>
-                </a>
             </div>
 
         </div><br><br><br><br><br><br>
