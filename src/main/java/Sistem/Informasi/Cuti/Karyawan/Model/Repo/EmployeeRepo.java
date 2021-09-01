@@ -12,6 +12,9 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
     @Query("SELECT u FROM Employee u WHERE u.username =?1")
     public Employee getUsername(String username);
 
+    @Query("SELECT u FROM Employee u WHERE u.role.nama_role='HRD' AND u.username=?1")
+    public Employee getHrd(String username);
+
     @Query("SELECT u FROM Employee u WHERE u.deleted =true")
     List<Employee> employeeAktif();
 

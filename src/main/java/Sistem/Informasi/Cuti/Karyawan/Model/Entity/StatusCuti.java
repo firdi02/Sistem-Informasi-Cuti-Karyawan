@@ -18,16 +18,6 @@ public class StatusCuti extends MyAudtableBase<String> {
     @Column(name = "deskripsi")
     private String deskripsi;
 
-    @OneToOne(mappedBy = "statusCuti")
-    private PengajuanCuti pengajuanCuti;
-
-    public PengajuanCuti getPengajuanCuti() {
-        return pengajuanCuti;
-    }
-
-    public void setPengajuanCuti(PengajuanCuti pengajuanCuti) {
-        this.pengajuanCuti = pengajuanCuti;
-    }
 
     public Integer getCuti_id() {
         return cuti_id;

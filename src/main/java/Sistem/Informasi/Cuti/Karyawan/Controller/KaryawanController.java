@@ -1,14 +1,8 @@
 package Sistem.Informasi.Cuti.Karyawan.Controller;
 
 import Sistem.Informasi.Cuti.Karyawan.DTO.PengajuanDto;
-import Sistem.Informasi.Cuti.Karyawan.Model.Entity.DetailCuti;
-import Sistem.Informasi.Cuti.Karyawan.Model.Entity.Employee;
-import Sistem.Informasi.Cuti.Karyawan.Model.Entity.JenisCuti;
-import Sistem.Informasi.Cuti.Karyawan.Model.Entity.PengajuanCuti;
-import Sistem.Informasi.Cuti.Karyawan.Model.Repo.DetailCutiRepo;
-import Sistem.Informasi.Cuti.Karyawan.Model.Repo.EmployeeRepo;
-import Sistem.Informasi.Cuti.Karyawan.Model.Repo.HakCutiRepo;
-import Sistem.Informasi.Cuti.Karyawan.Model.Repo.PengajuanCutiRepo;
+import Sistem.Informasi.Cuti.Karyawan.Model.Entity.*;
+import Sistem.Informasi.Cuti.Karyawan.Model.Repo.*;
 import Sistem.Informasi.Cuti.Karyawan.Services.PDF.ExportPdf;
 import Sistem.Informasi.Cuti.Karyawan.Services.PengajuanCutiService;
 import Sistem.Informasi.Cuti.Karyawan.Services.UserAktif;
@@ -48,6 +42,9 @@ public class KaryawanController {
 
     @Autowired
     DetailCutiRepo detailCutiRepo;
+
+    @Autowired
+    StatusCutiRepo cutiRepo;
 
     @GetMapping("/pengajuan")
     public String Pengajuan(Model model){
@@ -110,13 +107,6 @@ public class KaryawanController {
         return "redirect:/KARYAWAN/monitoring";
     }
 
-    @GetMapping("/detail/{id}")
-    public String Detail(@PathVariable("id") Integer id, Model model){
-        DetailCuti detailCuti = detailCutiRepo.findById(id).get();
-        model.addAttribute("detail",detailCuti);
-        return "form_detail_cuti";
-    }
-
     @GetMapping("/cetak/{id}")
     public void ExsportPdf(HttpServletResponse response, @PathVariable("id") Integer id) throws DocumentException, IOException {
         response.setContentType("application/pdf");
@@ -132,6 +122,30 @@ public class KaryawanController {
         ExportPdf exporter = new ExportPdf(detailCutis);
         exporter.export(response);
 
+    }
+
+    @GetMapping("/send/{id}")
+    public String Send(@PathVariable("id") Integer id){
+        PengajuanCuti pengajuanCuti = pengajuanCutiRepo.findById(id).get();
+        StatusCuti statusCuti = cutiRepo.getStatus(2);
+        pengajuanCuti.setStatusCuti(statusCuti);
+        pengajuanCuti.setCreatedBy(pengajuanCuti.getCreatedBy());
+        pengajuanCuti.setCreatedDate(pengajuanCuti.getCreatedDate());
+        pengajuanCutiRepo.save(pengajuanCuti);
+
+        return "redirect:/KARYAWAN/monitoring";
+    }
+
+    @GetMapping("/cancel/{id}")
+    public String Cancel(@PathVariable("id") Integer id){
+        PengajuanCuti pengajuanCuti = pengajuanCutiRepo.findById(id).get();
+        StatusCuti statusCuti = cutiRepo.getStatus(5);
+        pengajuanCuti.setStatusCuti(statusCuti);
+        pengajuanCuti.setCreatedBy(pengajuanCuti.getCreatedBy());
+        pengajuanCuti.setCreatedDate(pengajuanCuti.getCreatedDate());
+        pengajuanCutiRepo.save(pengajuanCuti);
+
+        return "redirect:/KARYAWAN/monitoring";
     }
 
 

@@ -11,4 +11,4 @@ INSERT INTO tbl_status_cuti (status_cuti_id,status_cuti,deskripsi,deleted,create
 INSERT INTO tbl_status_cuti (status_cuti_id,status_cuti,deskripsi,deleted,created_date,updated_date,created_by,updated_by) VALUES (5,'Cancelled','Cancelled adalah status cuti dimana pengajuan cuti yang sebelumnya open namun di gagalkan oleh karyawan itu sendiri',1,NOW(),NOW(),'SYSTEM','SYSTEM');
 
 -- HRD UTAMA
-INSERT INTO tbl_employee (employee_id,nip,nama_lengkap,divisi,email,password,username,role_id,deleted,created_date,updated_date,created_by,updated_by) VALUES (1,'01234567890','Bejo Nugroho','HRD UTAMA','bejo@gmail.com','$2a$10$Mm.oeaKbktUECCDIuOrgCe8nbOIID6LFKxKethMZgoBS2kWUvrIzi','bejo',1,1,NOW(),NOW(),'SYSTEM','SYSTEM');
+INSERT INTO tbl_employee (employee_id,nip,nama_lengkap,divisi,email,password,username,role_id,deleted,created_date,updated_date,created_by,updated_by) VALUES (1,'01234567890','Bejo Nugroho','HRD UTAMA','Mr.DanilPub18@gmail.com','$2a$10$Mm.oeaKbktUECCDIuOrgCe8nbOIID6LFKxKethMZgoBS2kWUvrIzi','bejo',1,1,NOW(),NOW(),'SYSTEM','SYSTEM');

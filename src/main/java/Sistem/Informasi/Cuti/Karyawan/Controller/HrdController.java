@@ -1,11 +1,12 @@
 package Sistem.Informasi.Cuti.Karyawan.Controller;
 
-import Sistem.Informasi.Cuti.Karyawan.Model.Entity.Employee;
-import Sistem.Informasi.Cuti.Karyawan.Model.Entity.Role;
-import Sistem.Informasi.Cuti.Karyawan.Model.Repo.EmployeeRepo;
-import Sistem.Informasi.Cuti.Karyawan.Model.Repo.RoleRepo;
+import Sistem.Informasi.Cuti.Karyawan.DTO.PengajuanDto;
+import Sistem.Informasi.Cuti.Karyawan.Model.Entity.*;
+import Sistem.Informasi.Cuti.Karyawan.Model.Repo.*;
 import Sistem.Informasi.Cuti.Karyawan.Services.Email.SendEmail;
+import Sistem.Informasi.Cuti.Karyawan.Services.Empl.PengajuanCutiEmpl;
 import Sistem.Informasi.Cuti.Karyawan.Services.HakCutiNewEmployee;
+import Sistem.Informasi.Cuti.Karyawan.Services.UserAktif;
 import Sistem.Informasi.Cuti.Karyawan.Utils.RandomPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,6 +36,18 @@ public class HrdController {
 
     @Autowired
     HakCutiNewEmployee newEmployee;
+
+    @Autowired
+    PengajuanCutiRepo pengajuanCutiRepo;
+
+    @Autowired
+    PengajuanCutiEmpl pengajuanService;
+
+    @Autowired
+    StatusCutiRepo cutiRepo;
+
+    @Autowired
+    UserAktif userAktif;
 
     @GetMapping("/karyawan")
     public String Employee(Model model){
@@ -89,7 +102,7 @@ public class HrdController {
             String hasil =encoder.encode(kode);
             employee.setUsername(nama);
             employee.setPassword(hasil);
-            kirim.sendEmail(email,nama,kode,divisi);
+            kirim.EmailRecrutmen(email,nama,kode,divisi);
 
         }
         employee.setDeleted(true);
@@ -101,4 +114,42 @@ public class HrdController {
         }
         return "redirect:/HRD/karyawan";
     }
+
+    @GetMapping("/masuk")
+    public String PengajuanMasuk(Model model){
+        List<PengajuanDto> dtos = pengajuanService.getAll();
+        model.addAttribute("masuk",dtos);
+
+        return "pengajuan_masuk";
+    }
+
+    @GetMapping("/aprove/{id}")
+    public String Aprove(@PathVariable("id") Integer id){
+        Employee HRD = employeeRepo.getUsername(userAktif.getUser());
+        PengajuanCuti pengajuanCuti = pengajuanCutiRepo.findById(id).get();
+        StatusCuti statusCuti = cutiRepo.getStatus(3);
+        pengajuanCuti.setStatusCuti(statusCuti);
+        pengajuanCuti.setHrd(HRD);
+        pengajuanCuti.setCreatedBy(pengajuanCuti.getCreatedBy());
+        pengajuanCuti.setCreatedDate(pengajuanCuti.getCreatedDate());
+        pengajuanCutiRepo.save(pengajuanCuti);
+
+        return "redirect:/HRD/masuk";
+    }
+
+    @GetMapping("/reject/{id}")
+    public String Reject(@PathVariable("id") Integer id){
+        Employee HRD = employeeRepo.getUsername(userAktif.getUser());
+        PengajuanCuti pengajuanCuti = pengajuanCutiRepo.findById(id).get();
+        StatusCuti statusCuti = cutiRepo.getStatus(4);
+        pengajuanCuti.setStatusCuti(statusCuti);
+        pengajuanCuti.setHrd(HRD);
+        pengajuanCuti.setCreatedBy(pengajuanCuti.getCreatedBy());
+        pengajuanCuti.setCreatedDate(pengajuanCuti.getCreatedDate());
+        pengajuanCutiRepo.save(pengajuanCuti);
+
+        return "redirect:/HRD/masuk";
+    }
+
+
 }

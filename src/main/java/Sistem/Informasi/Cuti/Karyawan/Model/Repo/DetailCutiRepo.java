@@ -15,4 +15,5 @@ public interface DetailCutiRepo extends JpaRepository<DetailCuti,Integer> {
 
     @Query("SELECT u FROM DetailCuti u WHERE u.deleted=true AND u.pengajuanCuti.pengajuan_id=?1")
     public DetailCuti getDetailId(Integer id);
+
 }

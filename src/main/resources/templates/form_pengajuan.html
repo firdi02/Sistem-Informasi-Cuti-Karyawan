@@ -49,10 +49,10 @@
                     <div class="menu_section" sec:authorize="hasAnyAuthority('KARYAWAN')">
                         <h3>Dashboard</h3>
                         <ul class="nav side-menu" style="font-size: 14px">
-                            <li><a th:href="@{/dasboard}"><i class="fa fa-home fa-4x"></i>  <span>HOME</span></a>
+                            <li><a th:href="@{/}"><i class="fa fa-home fa-4x"></i>  <span>HOME</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/jurusan}">
+                                <a th:href="@{/KARYAWAN/monitoring}">
                                     <i class="fa fa-book fa-2x"></i><span>KELOLA CUTI</span>
                                 </a>
                             </li>
@@ -80,7 +80,11 @@
                             <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span>
                         </a>
                         <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" th:href="@{/register}"> Tambah Akun</a>
+
+                            <div sec:authorize="hasAnyAuthority('KARYAWAN')">
+                                <a class="dropdown-item" th:href="@{/KARYAWAN/setting}">Change Password</a>
+                            </div>
+
                             <a class="dropdown-item" th:href="@{logout}"><i class="fa fa-sign-out pull-right"></i>
                                 Log Out</a>
                         </div>

@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface PengajuanCutiRepo extends JpaRepository<PengajuanCuti,Integer> {
     @Query("SELECT u FROM PengajuanCuti u WHERE u.pengajuan_id=?1")
     public PengajuanCuti getPengajuan(Integer id);
+
 }

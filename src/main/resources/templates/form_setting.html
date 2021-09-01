@@ -1,92 +1,79 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="images/favicon.ico" type="image/ico" />
-    <title>UNIVERSITAS NASIONAL PASIM</title>
+    <link rel="icon" href="../../images/favicon.ico" type="image/ico" />
+
+    <title>SISTEM CUTI KARYAWAN</title>
 
     <!-- Bootstrap -->
-    <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- Datatables -->
+    <link th:href="@{../../vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
 
-    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{../../vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+    <link th:href="@{../../vendors/nprogress/nprogress.css}" rel="stylesheet">
+    <!-- iCheck -->
+    <link th:href="@{../../vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+
+    <!-- bootstrap-progressbar -->
+    <link th:href="@{../../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link th:href="@{../../vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link th:href="@{../../vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link th:href="@{../../build/css/custom.min.css}" rel="stylesheet">
 </head>
 
+
 <body class="nav-md">
-<div class="container body">
+<div class="container body" sec:authorize="isAuthenticated()">
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view mt-5">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a th:href="@{/dasboard}" class="site_title"><img class="img-responsive" src="images/favicon.ico" alt="">
-                        <span> UNAS PASIM</span>
-                    </a>
+                    <img class="rounded mx-auto d-block" src="../../images/favicon.ico" width="90" height="100" alt="">
                 </div>
 
                 <div class="clearfix"></div>
 
-                <!-- menu profile quick info -->
-                <!--                    <div class="profile clearfix">-->
-                <!--                        <div class="profile_pic">-->
-                <!--                            <img src="images/img.jpg" alt="..." class="ig-cirmcle profile_img">-->
-                <!--                        </div>-->
-                <!--                        <div class="profile_info">-->
-                <!--                            <span>Welcome,</span>-->
-                <!--                            <h2><th:block th:utext="${namaAkun}"/></h2>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!-- /menu profile quick info -->
-
-                <br />
+                <br /><br /><br />
 
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
+                    <div class="menu_section" sec:authorize="hasAnyAuthority('KARYAWAN')">
                         <h3>Dashboard</h3>
                         <ul class="nav side-menu" style="font-size: 14px">
-                            <li><a th:href="@{/dasboard}"><i class="fa fa-home"></i> <span>Home</span></a>
-                            </li>
-                            <li><a><i class="fa fa-user"></i> PENGGUNA <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a th:href="@{/mahasiswa}">MAHASISWA</a></li>
-                                    <li><a th:href="@{/dosen}">DOSEN</a></li>
-                                </ul>
+                            <li><a th:href="@{/}"><i class="fa fa-home fa-4x"></i>  <span>HOME</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/fakultas}">
-                                    <i class="fa fa-book"></i><span>FAKULTAS</span>
+                                <a th:href="@{/KARYAWAN/monitoring}">
+                                    <i class="fa fa-book fa-2x"></i><span>KELOLA CUTI</span>
                                 </a>
+                            </li>
+                            <li><a th:href="@{/KARYAWAN/pengajuan}"><i class="fa fa-clone fa-2x"></i> <span>PENGAJUAN CUTI</span></a>
+                        </ul>
+                    </div>
+                    <div class="menu_section" sec:authorize="hasAnyAuthority('HRD')">
+                        <h3>Dashboard</h3>
+                        <ul class="nav side-menu" style="font-size: 14px">
+                            <li><a th:href="@{/}"><i class="fa fa-home fa-4x"></i>  <span>HOME</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/jurusan}">
-                                    <i class="fa fa-book"></i><span>JURUSAN</span>
+                                <a th:href="@{/HRD/masuk}">
+                                    <i class="fa fa-book fa-2x"></i><span>KELOLA CUTI KARYAWAN</span>
                                 </a>
                             </li>
-                            <li><a th:href="@{/makul}"><i class="fa fa-clone"></i> <span>MATA KULIAH</span></a>
-                            </li>
-                            <li><a th:href="@{/nilai}"><i class="fa fa-book"></i> <span>NILAI</span></a>
-                            </li>
-                            <li><a th:href="@{/jadwal}"><i class="fa fa-calendar"></i><span>JADWAL</span></a>
-                            </li>
+                            <li><a th:href="@{/HRD/libur}"><i class="fa fa-calendar-plus-o fa-2x"></i> <span>DATA LIBUR</span></a></li>
+                            <li><a th:href="@{/HRD/karyawan}"><i class="fa fa-users fa-2x"></i> <span>DATA KARYAWAN</span></a></li>
+                            <li><a th:href="@{/HRD/recruitmen}"><i class="fa fa-user-plus fa-2x"></i> <span>RECRUITMEN</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -95,7 +82,6 @@
         </div>
     </div>
 
-    <!-- top navigation -->
     <div class="top_nav">
         <div class="nav_menu">
             <div class="nav toggle">
@@ -106,10 +92,18 @@
                     <li class="nav-item dropdown open" style="padding-left: 15px;">
                         <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
                            id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                            <img src="images/img.jpg" alt=""><th:block th:utext="${namaAkun}"/>
+                            <img src="../../images/img.jpg" alt="">
+                            <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span>
                         </a>
                         <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" th:href="@{/register}"> Tambah Akun</a>
+                            <div sec:authorize="hasAnyAuthority('KARYAWAN')">
+                                <a class="dropdown-item" th:href="@{/KARYAWAN/setting}">Change Password</a>
+                            </div>
+
+                            <div sec:authorize="hasAnyAuthority('HRD')">
+                                <a class="dropdown-item" th:href="@{/HRD/setting}">Change Password</a>
+                            </div>
+
                             <a class="dropdown-item" th:href="@{logout}"><i class="fa fa-sign-out pull-right"></i>
                                 Log Out</a>
                         </div>
@@ -131,11 +125,8 @@
                 <div class="col-md-12 col-sm-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <div th:if="${fakultas.id==null}">
-                                <h2>Tambah Fakultas</h2>
-                            </div>
-                            <div th:unless="${fakultas.id==null}">
-                                <h2>Edit Fakultas</h2>
+                            <div>
+                                <h2>SETTING</h2>
                             </div>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -144,16 +135,17 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <form class="" th:action="@{/fakultas/simpan}"  th:object="${fakultas}" method="post" novalidate>
-                                <input type="text" th:field="*{id}" th:value="${fakultas.id}" hidden="true">
+                            <form class="" th:action="@{/simpanSetting}" th:object="${setting}" method="post" novalidate>
+
                                 <div class="field item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3  label-align">Nama<span
+                                    <label class="col-form-label col-md-3 col-sm-3  label-align">Password<span
                                             class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input class="form-control" th:field="*{nama}" data-validate-length-range="3" data-validate-words="1"
-                                               name="name" placeholder="Fakultas" required="required" />
+                                        <input class="form-control" type="password" th:field="*{Password}" data-validate-length-range="3" data-validate-words="1"
+                                               name="name" required="required" />
                                     </div>
                                 </div>
+
 
                                 <div class="ln_solid">
                                     <div class="form-group">
@@ -175,8 +167,8 @@
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="../vendors/validator/multifield.js"></script>
-    <script src="../vendors/validator/validator.js"></script>
+    <script src="../../vendors/validator/multifield.js"></script>
+    <script src="../../vendors/validator/validator.js"></script>
 
     <!-- Javascript functions	-->
     <script>
@@ -226,18 +218,18 @@
     </script>
 
     <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <script src="../../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
+    <script src="../../vendors/nprogress/nprogress.js"></script>
     <!-- validator -->
     <!-- <script src="../vendors/validator/validator.js"></script> -->
 
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <script src="../../build/js/custom.min.js"></script>
 
 </body>
 

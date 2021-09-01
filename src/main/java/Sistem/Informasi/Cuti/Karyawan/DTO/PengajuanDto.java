@@ -16,10 +16,28 @@ public class PengajuanDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tanggalCuti;
 
+    private String namaEmploye;
     private Integer lamaCuti;
     private String alamat;
     private String noTelp;
     private String keterangan;
+    private String namaStatus;
+
+    public String getNamaStatus() {
+        return namaStatus;
+    }
+
+    public void setNamaStatus(String namaStatus) {
+        this.namaStatus = namaStatus;
+    }
+
+    public String getNamaEmploye() {
+        return namaEmploye;
+    }
+
+    public void setNamaEmploye(String namaEmploye) {
+        this.namaEmploye = namaEmploye;
+    }
 
     public Integer getDetailId() {
         return detailId;

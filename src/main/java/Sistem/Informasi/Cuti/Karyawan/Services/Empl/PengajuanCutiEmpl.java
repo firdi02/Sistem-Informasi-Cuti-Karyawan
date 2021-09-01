@@ -10,6 +10,9 @@ import Sistem.Informasi.Cuti.Karyawan.Services.PengajuanCutiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PengajuanCutiEmpl implements PengajuanCutiService {
     @Autowired
@@ -95,5 +98,34 @@ public class PengajuanCutiEmpl implements PengajuanCutiService {
         return dto;
     }
 
+    private PengajuanDto toDto(DetailCuti detailCuti){
+        PengajuanDto dto = new PengajuanDto();
+        dto.setDetailId(detailCuti.getDetail_pengajuan_cuti_id());
+        dto.setPengajuanId(detailCuti.getPengajuanCuti().getPengajuan_id());
+        dto.setTanggalCuti(detailCuti.getTanggal());
+        dto.setJenisCutiId(detailCuti.getJenisCuti().getJenis_cuti_id());
+        dto.setNoTelp(detailCuti.getPengajuanCuti().getNoTelp());
+        dto.setLamaCuti(detailCuti.getPengajuanCuti().getLama_cuti());
+        dto.setStatusId(detailCuti.getPengajuanCuti().getStatusCuti().getCuti_id());
+        dto.setKeterangan(detailCuti.getPengajuanCuti().getKeterangan());
+        dto.setAlamat(detailCuti.getPengajuanCuti().getAlamat());
+        dto.setEmployeeId(detailCuti.getPengajuanCuti().getEmployee().getEmploye_id());
+        dto.setPenggantiId(detailCuti.getPengajuanCuti().getPengganti_id());
+        dto.setNamaEmploye(detailCuti.getPengajuanCuti().getEmployee().getNama());
+        dto.setNamaStatus(detailCuti.getPengajuanCuti().getStatusCuti().getStatus_cuti());
+        return dto;
+    }
+
+
+    public List<PengajuanDto> getAll() {
+        List<DetailCuti> listAllDetail = (List<DetailCuti>) detailCutiRepo.findAll();
+        List<PengajuanDto> listDto = new ArrayList<>();
+        for (DetailCuti detailCuti: listAllDetail) {
+            if(detailCuti.getPengajuanCuti().getStatusCuti().getCuti_id()!=1 && detailCuti.isDeleted()==true){
+                listDto.add(toDto(detailCuti));
+            }
+        }
+        return listDto;
+    }
 
 }

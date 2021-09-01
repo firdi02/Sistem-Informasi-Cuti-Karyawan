@@ -49,7 +49,7 @@
                     <div class="menu_section" sec:authorize="hasAnyAuthority('KARYAWAN')">
                         <h3>Dashboard</h3>
                         <ul class="nav side-menu" style="font-size: 14px">
-                            <li><a th:href="@{/dasboard}"><i class="fa fa-home fa-4x"></i>  <span>HOME</span></a>
+                            <li><a th:href="@{/}"><i class="fa fa-home fa-4x"></i>  <span>HOME</span></a>
                             </li>
                             <li>
                                 <a th:href="@{/KARYAWAN/monitoring}">
@@ -81,7 +81,10 @@
                             <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span>
                         </a>
                         <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" th:href="@{/register}"> Tambah Akun</a>
+                            <div sec:authorize="hasAnyAuthority('KARYAWAN')">
+                                <a class="dropdown-item" th:href="@{/KARYAWAN/setting}">Change Password</a>
+                            </div>
+
                             <a class="dropdown-item" th:href="@{/logout}"><i class="fa fa-sign-out pull-right"></i>
                                 Log Out</a>
                         </div>
@@ -141,13 +144,16 @@
                                                     <td>[[${data.pengajuanCuti.statusCuti.status_cuti}]]</td>
                                                     <td>
                                                         <div th:if="${data.pengajuanCuti.statusCuti.cuti_id==1}">
-                                                            <a th:href="@{'/KARYAWAN/send/'+${data.detail_pengajuan_cuti_id}}">SEND</a>
+                                                            <a th:href="@{'/KARYAWAN/send/'+${data.getPengajuanCuti().getPengajuan_id()}}">SEND</a>
                                                             <a th:href="@{'/KARYAWAN/detail/'+${data.detail_pengajuan_cuti_id}}">DETAIL</a>
                                                             <a th:href="@{'/KARYAWAN/ubah/'+${data.getPengajuanCuti().getPengajuan_id()}}">UPDATE</a>
                                                             <a th:href="@{'/KARYAWAN/hapus/'+${data.getPengajuanCuti().getPengajuan_id()}}">DELETE</a>
                                                         </div>
-                                                        <div th:unless="${data.pengajuanCuti.statusCuti.cuti_id==1}">
+                                                        <div th:if="${data.pengajuanCuti.statusCuti.cuti_id==2}">
                                                             <a th:href="@{'/KARYAWAN/cancel/'+${data.detail_pengajuan_cuti_id}}">CANCEL</a>
+                                                            <a th:href="@{'/KARYAWAN/detail/'+${data.detail_pengajuan_cuti_id}}">DETAIL</a>
+                                                        </div>
+                                                        <div th:if="${data.pengajuanCuti.statusCuti.cuti_id!=1} AND ${data.pengajuanCuti.statusCuti.cuti_id!=2}">
                                                             <a th:href="@{'/KARYAWAN/detail/'+${data.detail_pengajuan_cuti_id}}">DETAIL</a>
                                                         </div>
                                                     </td>

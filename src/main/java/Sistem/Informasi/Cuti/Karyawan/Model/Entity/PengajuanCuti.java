@@ -16,8 +16,8 @@ public class PengajuanCuti extends MyAudtableBase<String> {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "status_id", referencedColumnName = "status_cuti_id")
+    @ManyToOne
+    @JoinColumn(name = "status_id")
     private StatusCuti statusCuti;
 
     @Column(name = "pengganti_id")

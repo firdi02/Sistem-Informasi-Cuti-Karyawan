@@ -1,11 +1,14 @@
 package Sistem.Informasi.Cuti.Karyawan.Services.Email;
 
 import Sistem.Informasi.Cuti.Karyawan.Model.Entity.Employee;
+import Sistem.Informasi.Cuti.Karyawan.Model.Repo.EmployeeRepo;
+import Sistem.Informasi.Cuti.Karyawan.Services.UserAktif;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 @Service
@@ -13,12 +16,20 @@ public class SendEmail {
     @Autowired
     private JavaMailSender emailSender;
 
-    public void sendEmail(String email,String nama, String password,String divisi){
+    @Autowired
+    EmployeeRepo employeeRepo;
+
+    @Autowired
+    UserAktif userAktif;
+
+    public void EmailRecrutmen(String email, String nama, String password, String divisi){
+        Employee employee = employeeRepo.getUsername(userAktif.getUser());
+        System.out.println(employee.getEmail());
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         try{
             helper.setSubject("PT Pasim Utama");
-            helper.setFrom("Mr.DanilPub18@gmail.com");
+            helper.setFrom(new InternetAddress(employee.getEmail(), employee.getNama()));
             helper.setTo(email);
             String link = "http://localhost:8080/login";
             boolean html = true;
@@ -39,6 +50,10 @@ public class SendEmail {
         }catch(Exception e){
             e.printStackTrace();
         }
+
+    }
+
+    public void Send(){
 
     }
 
