@@ -1,10 +1,8 @@
 package Sistem.Informasi.Cuti.Karyawan.Controller;
 
-import Sistem.Informasi.Cuti.Karyawan.DTO.PengajuanDto;
 import Sistem.Informasi.Cuti.Karyawan.Model.Entity.*;
 import Sistem.Informasi.Cuti.Karyawan.Model.Repo.*;
 import Sistem.Informasi.Cuti.Karyawan.Services.Email.SendEmail;
-import Sistem.Informasi.Cuti.Karyawan.Services.Empl.PengajuanCutiEmpl;
 import Sistem.Informasi.Cuti.Karyawan.Services.HakCutiNewEmployee;
 import Sistem.Informasi.Cuti.Karyawan.Services.UserAktif;
 import Sistem.Informasi.Cuti.Karyawan.Utils.RandomPassword;
@@ -41,13 +39,13 @@ public class HrdController {
     PengajuanCutiRepo pengajuanCutiRepo;
 
     @Autowired
-    PengajuanCutiEmpl pengajuanService;
-
-    @Autowired
     StatusCutiRepo cutiRepo;
 
     @Autowired
     UserAktif userAktif;
+
+    @Autowired
+    DetailCutiRepo detailCutiRepo;
 
     @GetMapping("/karyawan")
     public String Employee(Model model){
@@ -117,8 +115,8 @@ public class HrdController {
 
     @GetMapping("/masuk")
     public String PengajuanMasuk(Model model){
-        List<PengajuanDto> dtos = pengajuanService.getAll();
-        model.addAttribute("masuk",dtos);
+        List<DetailCuti> detailCuti = detailCutiRepo.findAll();
+        model.addAttribute("masuk",detailCuti);
 
         return "pengajuan_masuk";
     }
@@ -133,7 +131,7 @@ public class HrdController {
         pengajuanCuti.setCreatedBy(pengajuanCuti.getCreatedBy());
         pengajuanCuti.setCreatedDate(pengajuanCuti.getCreatedDate());
         pengajuanCutiRepo.save(pengajuanCuti);
-
+        kirim.SendAprove(HRD,pengajuanCuti);
         return "redirect:/HRD/masuk";
     }
 
@@ -147,7 +145,7 @@ public class HrdController {
         pengajuanCuti.setCreatedBy(pengajuanCuti.getCreatedBy());
         pengajuanCuti.setCreatedDate(pengajuanCuti.getCreatedDate());
         pengajuanCutiRepo.save(pengajuanCuti);
-
+        kirim.SendReject(HRD,pengajuanCuti);
         return "redirect:/HRD/masuk";
     }
 

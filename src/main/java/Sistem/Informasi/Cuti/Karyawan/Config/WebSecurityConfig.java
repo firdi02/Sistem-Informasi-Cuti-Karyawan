@@ -41,8 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/KARYAWAN/*").hasAnyAuthority("KARYAWAN")
-                .antMatchers("/HRD/*").hasAnyAuthority("HRD")
+                .antMatchers("/KARYAWAN/*","/KARYAWAN/**").hasAnyAuthority("KARYAWAN")
+                .antMatchers("/HRD/*","/HRD/**").hasAnyAuthority("HRD")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().permitAll()
                 .and()
-                .exceptionHandling().accessDeniedPage("/403")
+                .exceptionHandling().accessDeniedPage("/404")
         ;
     }
 }

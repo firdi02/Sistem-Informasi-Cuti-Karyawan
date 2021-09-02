@@ -22,6 +22,15 @@ public class PengajuanDto {
     private String noTelp;
     private String keterangan;
     private String namaStatus;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getNamaStatus() {
         return namaStatus;

@@ -6,7 +6,7 @@ import Sistem.Informasi.Cuti.Karyawan.Model.Repo.DetailCutiRepo;
 import Sistem.Informasi.Cuti.Karyawan.Model.Repo.JenisCutiRepo;
 import Sistem.Informasi.Cuti.Karyawan.Model.Repo.PengajuanCutiRepo;
 import Sistem.Informasi.Cuti.Karyawan.Model.Repo.StatusCutiRepo;
-import Sistem.Informasi.Cuti.Karyawan.Services.PengajuanCutiService;
+import Sistem.Informasi.Cuti.Karyawan.Services.Interface.PengajuanCutiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -113,16 +113,19 @@ public class PengajuanCutiEmpl implements PengajuanCutiService {
         dto.setPenggantiId(detailCuti.getPengajuanCuti().getPengganti_id());
         dto.setNamaEmploye(detailCuti.getPengajuanCuti().getEmployee().getNama());
         dto.setNamaStatus(detailCuti.getPengajuanCuti().getStatusCuti().getStatus_cuti());
+        dto.setEmail(detailCuti.getPengajuanCuti().getEmployee().getEmail());
+        dto.setHrdId(detailCuti.getPengajuanCuti().getHrd().getEmploye_id());
         return dto;
     }
 
-
+    @Override
     public List<PengajuanDto> getAll() {
         List<DetailCuti> listAllDetail = (List<DetailCuti>) detailCutiRepo.findAll();
         List<PengajuanDto> listDto = new ArrayList<>();
         for (DetailCuti detailCuti: listAllDetail) {
             if(detailCuti.getPengajuanCuti().getStatusCuti().getCuti_id()!=1 && detailCuti.isDeleted()==true){
                 listDto.add(toDto(detailCuti));
+                System.out.println("test");
             }
         }
         return listDto;

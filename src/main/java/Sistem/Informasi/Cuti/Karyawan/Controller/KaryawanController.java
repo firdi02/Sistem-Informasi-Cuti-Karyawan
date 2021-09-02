@@ -3,8 +3,9 @@ package Sistem.Informasi.Cuti.Karyawan.Controller;
 import Sistem.Informasi.Cuti.Karyawan.DTO.PengajuanDto;
 import Sistem.Informasi.Cuti.Karyawan.Model.Entity.*;
 import Sistem.Informasi.Cuti.Karyawan.Model.Repo.*;
+import Sistem.Informasi.Cuti.Karyawan.Services.Email.SendEmail;
 import Sistem.Informasi.Cuti.Karyawan.Services.PDF.ExportPdf;
-import Sistem.Informasi.Cuti.Karyawan.Services.PengajuanCutiService;
+import Sistem.Informasi.Cuti.Karyawan.Services.Interface.PengajuanCutiService;
 import Sistem.Informasi.Cuti.Karyawan.Services.UserAktif;
 import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,9 @@ public class KaryawanController {
 
     @Autowired
     StatusCutiRepo cutiRepo;
+
+    @Autowired
+    SendEmail email;
 
     @GetMapping("/pengajuan")
     public String Pengajuan(Model model){
@@ -126,25 +130,31 @@ public class KaryawanController {
 
     @GetMapping("/send/{id}")
     public String Send(@PathVariable("id") Integer id){
+        List<String> HRD = employeeRepo.getHrd();
+        Employee aktif = employeeRepo.getUsername(userAktif.getUser());
+        String[] emailArr = HRD.toArray(new String[HRD.size()]);
         PengajuanCuti pengajuanCuti = pengajuanCutiRepo.findById(id).get();
         StatusCuti statusCuti = cutiRepo.getStatus(2);
         pengajuanCuti.setStatusCuti(statusCuti);
         pengajuanCuti.setCreatedBy(pengajuanCuti.getCreatedBy());
         pengajuanCuti.setCreatedDate(pengajuanCuti.getCreatedDate());
         pengajuanCutiRepo.save(pengajuanCuti);
-
+        email.SendCuti(aktif,emailArr,pengajuanCuti);
         return "redirect:/KARYAWAN/monitoring";
     }
 
     @GetMapping("/cancel/{id}")
     public String Cancel(@PathVariable("id") Integer id){
+        List<String> HRD = employeeRepo.getHrd();
+        Employee aktif = employeeRepo.getUsername(userAktif.getUser());
+        String[] emailArr = HRD.toArray(new String[HRD.size()]);
         PengajuanCuti pengajuanCuti = pengajuanCutiRepo.findById(id).get();
         StatusCuti statusCuti = cutiRepo.getStatus(5);
         pengajuanCuti.setStatusCuti(statusCuti);
         pengajuanCuti.setCreatedBy(pengajuanCuti.getCreatedBy());
         pengajuanCuti.setCreatedDate(pengajuanCuti.getCreatedDate());
         pengajuanCutiRepo.save(pengajuanCuti);
-
+        email.Sendcancel(aktif,emailArr);
         return "redirect:/KARYAWAN/monitoring";
     }
 

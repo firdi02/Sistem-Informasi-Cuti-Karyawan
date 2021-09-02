@@ -30,4 +30,6 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
     @Query("SELECT u FROM Employee u WHERE u.deleted = true AND u.role.nama_role='KARYAWAN' AND NOT u.employe_id =?1")
     List<Employee> getPengganti(Integer employe_id);
 
+    @Query("SELECT u.email FROM Employee u WHERE u.deleted=true AND u.role.nama_role='HRD'")
+    List<String> getHrd();
 }

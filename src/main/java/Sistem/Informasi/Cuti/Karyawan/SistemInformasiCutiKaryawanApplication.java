@@ -1,6 +1,7 @@
 package Sistem.Informasi.Cuti.Karyawan;
 
 import Sistem.Informasi.Cuti.Karyawan.Utils.AuditorAwareImpl;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,5 +18,10 @@ public class SistemInformasiCutiKaryawanApplication {
 	@Bean
 	public AuditorAware<String> auditorAware(){
 		return new AuditorAwareImpl();
+	}
+
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 }

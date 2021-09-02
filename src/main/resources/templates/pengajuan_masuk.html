@@ -56,8 +56,8 @@
                                     <i class="fa fa-book fa-2x"></i><span>KELOLA CUTI KARYAWAN</span>
                                 </a>
                             </li>
-                            <li><a th:href="@{/HRD/data}"><i class="fa fa-calendar-plus-o fa-2x"></i> <span>DATA LIBUR</span></a></li>
-                            <li><a th:href="@{/HRD/data}"><i class="fa fa-users fa-2x"></i> <span>DATA KARYAWAN</span></a></li>
+                            <li><a th:href="@{/HRD/libur}"><i class="fa fa-calendar-plus-o fa-2x"></i> <span>DATA LIBUR</span></a></li>
+                            <li><a th:href="@{/HRD/karyawan}"><i class="fa fa-users fa-2x"></i> <span>DATA KARYAWAN</span></a></li>
                             <li><a th:href="@{/HRD/recruitmen}"><i class="fa fa-user-plus fa-2x"></i> <span>RECRUITMEN</span></a>
                         </ul>
                     </div>
@@ -139,21 +139,23 @@
                                             <tbody>
                                             <th:block th:each="data,no:${masuk}">
                                                 <tr>
+                                                    <div th:if="${data.pengajuanCuti.statusCuti.cuti_id!=1}">
                                                     <td>[[${no.count}]]</td>
-                                                    <td>[[${data.namaEmploye}]]</td>
-                                                    <td th:text="${#dates.format(data.tanggalCuti, 'dd-MMM-yyyy')}"></td>
-                                                    <td>[[${data.lamaCuti}]] hari</td>
-                                                    <td>[[${data.namaStatus}]]</td>
+                                                    <td>[[${data.pengajuanCuti.employee.nama}]]</td>
+                                                    <td th:text="${#dates.format(data.tanggal, 'dd-MMM-yyyy')}"></td>
+                                                    <td>[[${data.pengajuanCuti.lama_cuti}]] hari</td>
+                                                    <td>[[${data.pengajuanCuti.statusCuti.status_cuti}]]</td>
                                                     <td>
-                                                        <div th:if="${data.statusId==2}">
-                                                            <a th:href="@{'/HRD/aprove/'+${data.pengajuanId}}">APPROVE</a>
-                                                            <a th:href="@{'/HRD/reject/'+${data.pengajuanId}}">REJECTED</a>
-                                                            <a th:href="@{'/HRD/detail/'+${data.detailId}}">DETAIL</a>
+                                                        <div th:if="${data.pengajuanCuti.statusCuti.cuti_id==2}">
+                                                            <a th:href="@{'/HRD/aprove/'+${data.getPengajuanCuti().getPengajuan_id()}}">APPROVE</a>
+                                                            <a th:href="@{'/HRD/reject/'+${data.getPengajuanCuti().getPengajuan_id()}}">REJECTED</a>
+                                                            <a th:href="@{'/HRD/detail/'+${data.detail_pengajuan_cuti_id}}">DETAIL</a>
                                                         </div>
-                                                        <div th:unless="${data.statusId==2}">
-                                                            <a th:href="@{'/HRD/detail/'+${data.detailId}}">DETAIL</a>
+                                                        <div th:unless="${data.pengajuanCuti.statusCuti.cuti_id==2}">
+                                                            <a th:href="@{'/HRD/detail/'+${data.detail_pengajuan_cuti_id}}">DETAIL</a>
                                                         </div>
                                                     </td>
+                                                    </div>
                                                 </tr>
                                             </th:block>
                                             </tbody>
